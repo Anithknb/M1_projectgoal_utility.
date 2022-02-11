@@ -1,7 +1,14 @@
+// This project is an small idea which helps the librarian in fetching data.
+// It also helps in adding data to the books available in the library.
+// This program gives the details about the Books present in the library.
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
  
+ // we use three functions char, int and float. 
+ // Book name, author, number of pages, price are the four inputs
 
 struct library {
     char book_name[20];
@@ -10,6 +17,9 @@ struct library {
     float price;
 };
  
+ // I have included the while function for 5 
+ // An welcome note to greet the user
+ // adding book informations 
 
 int main()
 {
@@ -37,7 +47,7 @@ int main()
                "the above: ");
         scanf("%d", &input);
  
-       
+       // using switch function to transfer the inputs to the case 1
         switch (input) {
  
        
