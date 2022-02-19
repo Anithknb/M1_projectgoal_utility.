@@ -1,96 +1,51 @@
-// This project is an small idea which helps the librarian in fetching data.
-// It also helps in adding data to the books available in the library.
-// This program gives the details about the Books present in the library.
+PROJECT_NAME = library-management-system 
+
+#All Source code file
+SRC = main.c\
+src/function.c
 
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
- 
- // we use three functions char, int and float. 
- // Book name, author, number of pages, price are the four inputs
+#Path to the header file
+INC_HEADER = inc
 
-struct library {
-    char book_name[20];
-    char author[20];
-    int pages;
-    float price;
-};
- 
- // I have included the while function for 5 
- // An welcome note to greet the user
- // adding book informations 
+#To check if the OS is windows or linux and set the executable file extension and delete command accordingly
+ifdef OS
+   RM = del /q
+   FixPath = $(subst /,\,$1)
+   EXEC = exe
+else
+   ifeq ($(shell uname), Linux)
+      RM = rm -rf
+      FixPath = $1
+	  EXEC = out
+   endif
+endif
 
-int main()
-{
-   
-    struct library lib[100];
- 
-    char ar_nm[30], bk_nm[30];
- 
-        int i, input, count;
- 
-    i = input = count = 0;
- 
-        while (input != 5) {
- 
-        printf("\n\n********######"
-               "WELCOME TO E-LIBRARY "
-               "#####********\n");
-        printf("\n\n1. Add book infor"
-               "mation\n2. Display "
-               "book information\n");
-        printf("3. Exit");
- 
-       
-        printf("\n\nEnter one of "
-               "the above: ");
-        scanf("%d", &input);
- 
-       // using switch function to transfer the inputs to the case 1
-        switch (input) {
- 
-       
-        case 1:
- 
-            printf("Enter book name = ");
-            scanf("%s", lib[i].book_name);
- 
-            printf("Enter author name = ");
-            scanf("%s", lib[i].author);
- 
-            printf("Enter pages = ");
-            scanf("%d", &lib[i].pages);
- 
-            printf("Enter price = ");
-            scanf("%f", &lib[i].price);
-            count++;
- 
-            break;
- 
-     
-        case 2:
-            printf("you have entered"
-                   " the following "
-                   "information\n");
-            for (i = 0; i < count; i++) {
- 
-                printf("book name = %s",
-                       lib[i].book_name);
- 
-                printf("\t author name = %s",
-                       lib[i].author);
- 
-                printf("\t  pages = %d",
-                       lib[i].pages);
- 
-                printf("\t  price = %f",
-                       lib[i].price);
-            }
-            break;
-  case 3:
-            exit(0);
-        }
-    }
-    return 0;
-}
+
+all:
+	gcc -I $(INC_HEADER) $(SRC) -o $(call FixPath, ./$(PROJECT_NAME).$(EXEC))
+
+run: all
+	$(call FixPath, ./$(PROJECT_NAME).$(EXEC))
+	
+
+coverageCheck:
+	gcc -fprofile-arcs -ftest-coverage -I $(INC_HEADER) -I $(INC_TEST) $(TEST_SRC) -o $(call FixPath, $(TEST_OUTPUT))
+	$(call FixPath, ./$(TEST_OUTPUT))
+	gcov -a $(call FixPath, ./test_Managment.c)
+	$(RM) *.$(EXEC)
+	$(RM) *.gcda
+	$(RM) *.gcno
+	$(RM) *.c.gcov
+	$(RM) *.DAT
+
+cppcheck:
+	cppcheck --enable=all -I $(INC_HEADER) $(SRC)
+
+
+clean:
+	gcc -fprofile-arcs -ftest-coverage -I $(INC_HEADER) -I $(INC_TEST)  -o $(call FixPath)
+	$(RM) *.$(EXEC)
+	$(RM) *.gcda
+	$(RM) *.gcno
+	$(RM) *.gcov
