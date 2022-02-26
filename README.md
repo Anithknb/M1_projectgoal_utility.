@@ -7,3 +7,4 @@ Library management system
 Badge 
 [![CI](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/main.yml)
 
+[![C/C++ CI UnitTesting](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/c-cpp_unit.yml/badge.svg)](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/c-cpp_unit.yml)
