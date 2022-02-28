@@ -1,27 +1,29 @@
-# comments
+# Name Of the Project
+PROJECT_NAME = LMS
 
-#Target : dependency
-#<TAB>Command
+#All Source code file
+SRC = main.c\
+src/Addbook.c\
+src/Deletebook.c\
+src/issuebook.c\
+src/Searchbook.c\
+src/viewbooks.c
 
-PROJ_NAME = Library
-TEST_PROJ_NAME = Test_$(PROJ_NAME)
+TEST_SRC = src/Addbook.c\
+src/Deletebook.c\
+src/issuebook.c\
+src/Searchbook.c\
+src/viewbooks.c\
+unity/unity.c\
+test/test_Managment.c
 
-SRC =src\init.c\
-src\add.c\
-src\view.c\
-src\search.c\
-src\update.c\
-src\bookCount.c\
+#Path to the header file
+INC_HEADER = inc
+INC_TEST = unity
 
-COV_SRC = main.c
-
-TEST_SRC = test/test.c \
-unity/unity.c 
-INC_H = inc
-INC_T = unity
-
+#To check if the OS is windows or linux and set the executable file extension and delete command accordingly
 ifdef OS
-   RM = del 
+   RM = del /q
    FixPath = $(subst /,\,$1)
    EXEC = exe
 else
@@ -31,21 +33,41 @@ else
 	  EXEC = out
    endif
 endif
-.PHONY: run clean test doc all
+
+TEST_OUTPUT = Test_$(PROJECT_NAME).$(EXEC)
 
 all:
-	gcc -I $(INC_H) $(SRC) main.c -o $(call FixPath,$(PROJ_NAME).$(EXEC))
+	gcc -I $(INC_HEADER) $(SRC) -o $(call FixPath, ./$(PROJECT_NAME).$(EXEC))
 
-run:
-	$(call FixPath,$(PROJ_NAME).$(EXEC))
-	
+run: all
+	$(call FixPath, ./$(PROJECT_NAME).$(EXEC))
+
 test:
-	gcc -I $(INC_H) -I $(INC_T) $(TEST_SRC) $(SRC) -o $(call FixPath,$(TEST_PROJ_NAME).$(EXEC))
-	./$(call FixPath,$(TEST_PROJ_NAME).$(EXEC))
+	gcc -I $(INC_HEADER) -I $(INC_TEST) $(TEST_SRC) -o $(call FixPath, ./$(TEST_OUTPUT))
+	$(call FixPath, ./$(TEST_OUTPUT))
+	
+
+coverageCheck:
+	gcc -fprofile-arcs -ftest-coverage -I $(INC_HEADER) -I $(INC_TEST) $(TEST_SRC) -o $(call FixPath, $(TEST_OUTPUT))
+	$(call FixPath, ./$(TEST_OUTPUT))
+	gcov -a $(call FixPath, ./test_Managment.c)
+	$(RM) *.$(EXEC)
+	$(RM) *.gcda
+	$(RM) *.gcno
+	$(RM) *.c.gcov
+	$(RM) *.DAT
+	$(RM) test_Managment.c 
 
 cppcheck:
-	cppcheck --enable=all $(SRC) main.c
-	
-debug:
-	gcc -I $(INC_H) $(SRC) main.c -g -o $(PROJ_NAME).$(EXEC)
-	gdb $(PROJ_NAME).$(EXEC)
+	cppcheck --enable=all -I $(INC_HEADER) $(SRC)
+
+valgrind:
+	gcc -I $(INC_HEADER) -I $(INC_TEST) $(TEST_SRC) -o $(call FixPath, ./$(TEST_OUTPUT))
+	valgrind ./$(TEST_OUTPUT)
+
+clean:
+	gcc -fprofile-arcs -ftest-coverage -I $(INC_HEADER) -I $(INC_TEST) $(TEST_SRC) -o $(call FixPath, $(TEST_OUTPUT))
+	$(RM) *.$(EXEC)
+	$(RM) *.gcda
+	$(RM) *.gcno
+	$(RM) *.gcov

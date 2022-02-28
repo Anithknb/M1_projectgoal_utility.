@@ -1,93 +1,91 @@
-#include "function.h"
+/**
+ * @file main.c
+ * @author Anith K N B
+ * @brief 
+ * @version 0.1
+ * @date 2022-02-22
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------
+#include"library_Managment_system.h"
 
-/* function to show the operation menu*/
-void menu(){
-    int choice = 0,deptBookCnt,deptchoice;
-	char dept_ty[30];
-	int count1=0;
-    do{
-        printf("\n\n\n\n-------  CONTENTS  --------");
-        printf("\n1.Add Books");
-        printf("\n2.Search Books");
-        printf("\n3.View Books");
-        printf("\n4.Update Book");
-		printf("\n5.Department Book Count");
-        printf("\n0.Exit");
-        printf("\n\n\nEnter choice => ");
-        scanf("%d",&choice);
-        switch(choice){
-        case 1:
-            count1=addingBook();
-            break;
-        case 2:
-            searchBooks(count1);
-            break;
-        case 3:
-            viewBooks(count1);
-            break;
-        case 4:
-            updateBook(count1);
-            break;
-        case 5:
-		    printf("\n\n\t\t\tSELECT DEPARTMENT :");
-            printf("\n\t\t\t------------------------------------------------\n");
-		    printf("\n\t\t\t1.Dictionary\n\t\t\t2.Health_Fitness\n\t\t\t3.Philosophy\n\t\t\t4.Textbook\n\t\t\t5.Autobiography\n\t\t\t6.Fiction\n\t\t\t7.Others");
-			printf("\n\t\tMAKE CHOICE:");
-			scanf("%d",&deptchoice);
+/**
+ * @brief main function of the project
+ * 
+ * @return int 
+ */
 
-			switch(deptchoice){
-				case 1:strcpy(dept_ty,"Dictionary");
-				break;
-				case 2:strcpy(dept_ty,"Health_Fitness");
-				break;
-				case 3:strcpy(dept_ty,"Philosophy");
-				break;
-				case 4:strcpy(dept_ty,"Textbook");
-				break;
-				case 5:strcpy(dept_ty,"Autobiography");
-				break;
-				case 6:strcpy(dept_ty,"Fiction");
-				break;
-				case 7:strcpy(dept_ty,"Others");
-				break;
-				default:printf("Invalid choice");
-			}
-			//scanf("%s", dept_ty);
-            deptBookCnt=noOfBooksByDepartment(dept_ty,count1);
-			printf("NUMBER OF BOOKS: %d",deptBookCnt);
-            break;
-        case 0:
-            printf("\n\n\n\t\t\t\tThank you!!!\n\n\n\n\n");
-            exit(1);
-            break;
-        default:
-            printf("\n\n\n\t\t\tINVALID INPUT!!! Try again...");
-        }                                            
-    }
-    while(choice!=0);                                        
-}
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-
-int main() 
+int main()
 {
-	int Pin,pinflag;
-    printf("\n\n\nWELCOME TO BOOK HOUSE\n");
-    printf("------------------------------------------------");
-	printf("\n\nPIN : ");
-	scanf("%d",&Pin);
-	pinflag = init(Pin);
-	if(pinflag == 0)
+    
+    int id,choice,success; 
+    
+    char name[20],authorname[20];
+    
+        
+
+    printf("\n\t\t\t\t\t\t*************** MAIN MENU ***************\n");
+    printf("\n\t\t\t\t\t\t1. Add Books");
+    printf("\n\t\t\t\t\t\t2. Delete books");
+    printf("\n\t\t\t\t\t\t3. View Books");
+    printf("\n\t\t\t\t\t\t4. Search book");
+    printf("\n\t\t\t\t\t\t5. Issue books");
+    printf("\n\t\t\t\t\t\t6. Close Application");
+    printf("\n\t\t\t\t\t\t******************************************\n");
+    printf("\n\t\t\t\t\t\tEnter your choice: ");
+    scanf("%d",&choice);
+    switch(choice)
     {
-        printf("\nTRY AGAIN SOMETIME");
-        exit(0);
-    } 
-    else 
+        case 1:
+        printf("\nBookId: ");
+        scanf("%d",&id);
+        fflush(stdin);
+        printf("\nBook name:");
+        //gets(name);
+	scanf("%19s",name);
+       printf("Authorname: ");
+        fflush(stdin);
+        //gets(author);
+	scanf("%19s",authorname);
+        success=addition(id,name,authorname);
+        break;
+        case 2:
+        printf("\nBookId: ");
+        scanf("%d",&id);
+        success=deletebook(id);
+        break;
+        case 3:
+        success=viewbook();
+        break;
+        case 4:
+        printf("\nBookId:");
+        scanf("%d",&id);
+        success=searchbook(id);
+        break;
+        case 5:
+        printf("\nBookId: ");
+        scanf("%d",&id);
+        success=issuebook(id);
+        break;
+        case 6:
+        printf("\n\n\n");
+        exit(1);
+        default:
+        printf("\n\t\t\t\t\t\tInvalid input");
+        break;
+     }
+    if(success == pass)
     {
-        printf("\nSUCCESSFUL");
+        printf("Successful\n");
     }
-	menu();	
-	return 0;
+    else if(success==fail)
+    {
+        printf("Unsuccessful\n");
+    }
+    else{
+        printf("Error\n");
+    }
+return 0;
 }
