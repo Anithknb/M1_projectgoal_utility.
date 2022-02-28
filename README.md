@@ -10,3 +10,5 @@ Badge
 [![C/C++ CI UnitTesting](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/c-cpp_unit.yml/badge.svg)](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/c-cpp_unit.yml)
 
 [![Check - Git Inspector](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/gitinspector.yml/badge.svg)](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/gitinspector.yml)
+
+https://api.codiga.io/project/31469/score/svg
