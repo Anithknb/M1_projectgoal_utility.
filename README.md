@@ -11,4 +11,4 @@ Badge
 
 [![Check - Git Inspector](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/gitinspector.yml/badge.svg)](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/gitinspector.yml)
 
-[![Codiga Badge]https://api.codiga.io/project/31469/score/svg
+https://api.codiga.io/project/31469/status/svg
