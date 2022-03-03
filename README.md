@@ -11,6 +11,8 @@ Badge
 
 [![Check - Git Inspector](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/gitinspector.yml/badge.svg)](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/gitinspector.yml)
 
+[![C/C++ CI - Build Status](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/c-cpp.yml/badge.svg)](https://github.com/Anithknb/M1_projectgoal_utility./actions/workflows/c-cpp.yml)
+
 <a href="https://app.codiga.io/public/user/github/Anithknb">
    <img src="https://api.codiga.io/public/badge/user/github/Anithknb?style=light" alt="codiga badge" />
 </a>
